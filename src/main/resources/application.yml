@@ -21,3 +21,9 @@ zuul:
       service-id: auth-service
       strip-prefix: false
       sensitive-headers: Cookie,Set-Cookie
+    storage-service:
+      path: /storage/**
+      serviceId: storage-service
+  host:
+      connect-timeout-millis: 60000
+      socket-timeout-millis: 60000
