@@ -17,7 +17,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         // How to customize the retured message?
         // Link: https://stackoverflow.com/a/40791087
-        String json = String.format("{\"message\": \"%s\"}", e.getMessage());
+        String json = String.format("{\"message\": \"%s\"}", "!"+e.getMessage());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

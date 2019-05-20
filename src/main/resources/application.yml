@@ -14,8 +14,8 @@ zuul:
   ignored-services: '*'
   routes:
     book-service:
-      path: /book/**
-      service-id: book-service
+      path: /library/**
+      service-id: library-service
     auth-service:
       path: /auth/**
       service-id: auth-service
