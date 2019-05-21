@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static java.util.Objects.nonNull;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.SIMPLE_HOST_ROUTING_FILTER_ORDER;
 
 /**
@@ -41,14 +42,17 @@ public class UserHeadersFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         final RequestContext currentContext = RequestContext.getCurrentContext();
 
-        final String token = currentContext.getRequest().getHeader("authorization").substring(jwtConfig.getPrefix().length());
+        String rawPrefix = currentContext.getRequest().getHeader("authorization");
+        if(nonNull(rawPrefix)) {
+            final String token = rawPrefix.substring(jwtConfig.getPrefix().length());
 
-        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token);
-        List<String> roles = claimsJws.getBody().get("authorities", List.class);
-        String username = claimsJws.getBody().getSubject();
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token);
+            List<String> roles = claimsJws.getBody().get("authorities", List.class);
+            String username = claimsJws.getBody().getSubject();
 
-        currentContext.addZuulRequestHeader("sub", username);
-        currentContext.addZuulRequestHeader("authorities", String.join(", ", roles));
+            currentContext.addZuulRequestHeader("username", username);
+            currentContext.addZuulRequestHeader("authorities", String.join(", ", roles));
+        }
 
         return null;
     }
