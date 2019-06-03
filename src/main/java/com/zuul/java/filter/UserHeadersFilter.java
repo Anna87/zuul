@@ -16,9 +16,6 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.SIMPLE_HOST_ROUTING_FILTER_ORDER;
 
-/**
- * Created by alexpench on 18/05/2019.
- */
 @Component
 public class UserHeadersFilter extends ZuulFilter {
     @Autowired
