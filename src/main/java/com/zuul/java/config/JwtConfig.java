@@ -8,19 +8,18 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class JwtConfig {
-    @Value("/auth/**")
+    @Value("${jwt.config.uri:}")
     private String Uri;
 
-    @Value("Authorization")
+    @Value("${jwt.config.header:}")
     private String header;
 
-    @Value("Bearer ")
+    @Value("${jwt.config.prefix:}")
     private String prefix;
 
     @Value("#{24*60*60}")
     private int expiration;
 
-    @Value("JwtSecretKey")
+    @Value("${jwt.config.secret:}")
     private String secret;
-
 }
