@@ -8,7 +8,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.SIMPLE_HOST_ROUTING_FILTER_ORDER;
 
+@RequiredArgsConstructor
 @Component
 public class UserHeadersFilter extends ZuulFilter {
-    @Autowired
-    private JwtConfig jwtConfig;
+    private final JwtConfig jwtConfig;
 
     @Override
     public String filterType() {
